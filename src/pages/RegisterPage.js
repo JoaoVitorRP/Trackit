@@ -1,44 +1,74 @@
-import styled from "styled-components";
-import { buttonColor } from "../constants/colors";
+import Main from "../assets/styles/LoginAndRegisterMain";
 import Logo from "../assets/images/BigLogo.png";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
+import { URL } from "../constants/apiLink";
+import { LoadingGIF } from "../constants/threeDots";
 
 export default function RegisterPage() {
+  const [userInfo, setUserInfo] = useState();
+  const [errorMsg, setErrorMsg] = useState("");
+  const [isDisabled, setIsDisabled] = useState(false);
+  const navigate = useNavigate();
+
+  function signUp(event) {
+    event.preventDefault();
+    setIsDisabled(true);
+
+    const promise = axios.post(`${URL}/auth/sign-up`, userInfo);
+    promise.then(() => navigate("/"));
+
+    promise.catch((err) => {
+      setIsDisabled(false);
+      if (err.response.status === 409) {
+        setErrorMsg("Este email já se encontra cadastrado!");
+      } else if (err.response.status === 422) {
+        setErrorMsg("Insira um email válido!");
+      }
+    });
+  }
+
   return (
-    <Main>
+    <Main isDisabled={isDisabled}>
       <img src={Logo} />
-      <input type="email" placeholder="email" />
-      <input type="password" placeholder="senha" />
-      <input type="text" placeholder="nome" />
-      <input type="url" placeholder="imagem" />
-      <button>Cadastrar</button>
-      <p>Já tem uma conta? Faça login!</p>
+      <form onSubmit={signUp}>
+        <input
+          type="email"
+          required
+          placeholder="email"
+          onChange={(e) => setUserInfo({ ...userInfo, email: e.target.value })}
+          disabled={isDisabled}
+        />
+        {errorMsg !== "" ? <h3>{errorMsg}</h3> : null}
+        <input
+          type="password"
+          required
+          placeholder="senha"
+          onChange={(e) => setUserInfo({ ...userInfo, password: e.target.value })}
+          disabled={isDisabled}
+        />
+        <input
+          type="text"
+          required
+          placeholder="nome"
+          onChange={(e) => setUserInfo({ ...userInfo, name: e.target.value })}
+          disabled={isDisabled}
+        />
+        <input
+          type="url"
+          required
+          placeholder="imagem"
+          onChange={(e) => setUserInfo({ ...userInfo, image: e.target.value })}
+          disabled={isDisabled}
+        />
+        <button type="submit" disabled={isDisabled}>
+          {isDisabled ? LoadingGIF : "Cadastrar"}
+        </button>
+      </form>
+      <Link to="/">
+        <p>Já tem uma conta? Faça login!</p>
+      </Link>
     </Main>
   );
 }
-
-const Main = styled.main`
-  padding: 68px 0px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  button {
-    width: 303px;
-    height: 45px;
-    background-color: ${buttonColor};
-    border: none;
-    border-radius: 5px;
-    margin-bottom: 25px;
-
-    font-size: 21px;
-    color: #ffffff;
-  }
-
-  p {
-    font-size: 14px;
-    color: ${buttonColor};
-    text-decoration: underline;
-  }
-`;

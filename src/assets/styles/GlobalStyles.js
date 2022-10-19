@@ -13,9 +13,11 @@ const GlobalStyles = createGlobalStyle`
         border: 1px solid #D5D5D5;
         border-radius: 5px;
         margin-bottom: 8px;
+
+        color: #666666;
     }
 
-    h1, h2, p, ::placeholder, button{
+    h1, h2, h3, p, ::placeholder, button, input{
         font-family: 'Lexend Deca', sans-serif;
         font-weight: 400;
     }
@@ -44,6 +46,12 @@ const GlobalStyles = createGlobalStyle`
         font-size: 20px;
         line-height: 25px;
         color: #666666;
+    }
+
+    h3{
+        font-size: 14px;
+        color: #ff3333;
+        margin: -5px 0px 8px 5px;
     }
 `;
 
