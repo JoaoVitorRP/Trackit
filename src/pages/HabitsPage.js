@@ -28,7 +28,7 @@ export default function HabitsPage() {
     promise.then((resp) => {
       setHabitCardsList(resp.data);
     });
-    // promise.catch(() => alert("Ocorreu um erro, favor fazer login novamente!"));
+    promise.catch(() => alert("Ocorreu um erro, favor fazer login novamente!"));
   }, []);
 
   return (
@@ -46,7 +46,7 @@ export default function HabitsPage() {
         {habitCardsList.length === 0 ? (
           <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
         ) : (
-          <HabitCards habitCardsList={habitCardsList} />
+          <HabitCards habitCardsList={habitCardsList} setHabitCardsList={setHabitCardsList}/>
         )}
       </Main>
       <BottomNavbar />
