@@ -2,7 +2,6 @@ import Header from "../components/Header";
 import BottomNavbar from "../components/BottomNavbar";
 import styled from "styled-components";
 import { backgroundColor } from "../constants/colors";
-import { headerColor } from "../constants/colors";
 
 export default function TodayPage() {
   return (

@@ -31,7 +31,7 @@ export default function RegisterPage() {
 
   return (
     <Main isDisabled={isDisabled}>
-      <img src={Logo} />
+      <img src={Logo} alt="Logo"/>
       <form onSubmit={signUp}>
         <input
           type="email"

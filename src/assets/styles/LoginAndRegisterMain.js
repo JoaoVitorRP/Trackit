@@ -31,7 +31,6 @@ const Main = styled.main`
     opacity: ${(props) => (props.isDisabled ? disabledOpacity : null)};
     border: none;
     border-radius: 5px;
-    margin-bottom: 25px;
     cursor: ${(props) => props.isDisabled ? "default" : "pointer"};
 
     display: flex;

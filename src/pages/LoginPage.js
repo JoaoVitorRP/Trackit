@@ -2,22 +2,25 @@ import Main from "../assets/styles/LoginAndRegisterMain";
 import Logo from "../assets/images/BigLogo.png";
 import { URL } from "../constants/apiLink";
 import axios from "axios";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import { LoadingGIF } from "../constants/threeDots";
+import { UserDataContext } from "../contexts/userData";
 
 export default function LoginPage() {
   const [loginInfo, setLoginInfo] = useState();
   const [errorMsg, setErrorMsg] = useState("");
   const [isDisabled, setIsDisabled] = useState(false);
-  const navigate = useNavigate();
+  const { signIn } = useContext(UserDataContext);
 
   function login(event) {
     event.preventDefault();
     setIsDisabled(true);
 
     const promise = axios.post(`${URL}/auth/login`, loginInfo);
-    promise.then(() => navigate("/habitos"));
+    promise.then((resp) => {
+      signIn(resp.data);
+    });
 
     promise.catch((err) => {
       setIsDisabled(false);
@@ -31,7 +34,7 @@ export default function LoginPage() {
 
   return (
     <Main isDisabled={isDisabled}>
-      <img src={Logo} />
+      <img src={Logo} alt="Logo"/>
       <form onSubmit={login}>
         <input
           type="email"

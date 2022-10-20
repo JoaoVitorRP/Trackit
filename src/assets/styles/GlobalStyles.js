@@ -28,6 +28,8 @@ const GlobalStyles = createGlobalStyle`
     }
 
     p{  
+        margin-top: 28px;
+
         font-size: 18px;
         line-height: 22px;
         color: #666666;
@@ -37,7 +39,6 @@ const GlobalStyles = createGlobalStyle`
         font-size: 23px;
         color: ${headerColor};
         line-height: 29px;
-        margin-bottom: 28px;
     }
 
     h2{

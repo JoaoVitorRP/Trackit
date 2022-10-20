@@ -13,7 +13,7 @@ export default function BottomNavbar() {
 }
 
 const Footer = styled.footer`
-  width: 100vw;
+  width: 100%;
   height: 70px;
   background-color: #ffffff;
   padding: 0px 30px;

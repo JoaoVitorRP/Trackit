@@ -2,18 +2,23 @@ import styled from "styled-components";
 
 import { headerColor } from "../constants/colors";
 import Logo from "../assets/images/SmallLogo.png";
+import { useContext } from "react";
+import { UserDataContext } from "../contexts/userData";
 
 export default function Header() {
+  const { userData } = useContext(UserDataContext);
+  const { image } = userData;
+
   return (
     <TopBanner>
-      <img src={Logo} />
-      <UserImg src="https://http.cat/403" />
+      <img src={Logo} alt="Logo"/>
+      <UserImg src={image} alt="Foto de perfil"/>
     </TopBanner>
   );
 }
 
 const TopBanner = styled.header`
-  width: 100vw;
+  width: 100%;
   height: 70px;
   background: ${headerColor};
   padding: 0px 18px;
