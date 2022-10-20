@@ -8,7 +8,7 @@ import { UserDataContext } from "../contexts/userData";
 import { LoadingGIF } from "../constants/threeDots";
 
 export default function AddHabitCard(props) {
-  const { isHidden, setIsHidden } = props;
+  const { isHidden, setIsHidden, habitCardsList, setHabitCardsList } = props;
 
   const { userData } = useContext(UserDataContext);
   const { token } = userData;
@@ -45,7 +45,8 @@ export default function AddHabitCard(props) {
 
     if (habitName !== "" && selectedDays !== []) {
       const promise = axios.post(`${URL}/habits`, body, config);
-      promise.then(() => {
+      promise.then((resp) => {
+        setHabitCardsList([...habitCardsList, resp.data]);
         setIsHidden(true);
         setHabitName("");
         setSelectedDays([]);
@@ -98,7 +99,7 @@ const Card = styled.div`
   padding: 18px;
   background-color: #ffffff;
   border-radius: 5px;
-  margin-top: 20px;
+  margin-bottom: 28px;
 
   display: ${(props) => (props.isHidden ? "none" : "flex")};
   flex-direction: column;
