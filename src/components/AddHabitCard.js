@@ -33,7 +33,7 @@ export default function AddHabitCard(props) {
   function submitHabit() {
     setIsDisabled(true);
 
-    const config = {
+    const auth = {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -44,7 +44,7 @@ export default function AddHabitCard(props) {
     };
 
     if (habitName !== "" && selectedDays !== []) {
-      const promise = axios.post(`${URL}/habits`, body, config);
+      const promise = axios.post(`${URL}/habits`, body, auth);
       promise.then((resp) => {
         setHabitCardsList([...habitCardsList, resp.data]);
         setIsHidden(true);

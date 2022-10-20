@@ -18,13 +18,13 @@ export default function HabitsPage() {
   const [habitCardsList, setHabitCardsList] = useState([]);
 
   useEffect(() => {
-    const config = {
+    const auth = {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     };
 
-    const promise = axios.get(`${URL}/habits`, config);
+    const promise = axios.get(`${URL}/habits`, auth);
     promise.then((resp) => {
       setHabitCardsList(resp.data);
     });

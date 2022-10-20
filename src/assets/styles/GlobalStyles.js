@@ -17,7 +17,7 @@ const GlobalStyles = createGlobalStyle`
         color: #666666;
     }
 
-    h1, h2, h3, h4, p, ::placeholder, button, input, div{
+    h1, h2, h3, h4, h5, p, ::placeholder, button, input, div, span{
         font-family: 'Lexend Deca', sans-serif;
         font-weight: 400;
     }
@@ -60,6 +60,12 @@ const GlobalStyles = createGlobalStyle`
 
         font-size: 20px;
         color: #666666;
+    }
+
+    h5, span{
+        color: #666666;
+        font-size: 15px;
+        line-height: 16px;
     }
 `;
 

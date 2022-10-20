@@ -2,80 +2,53 @@ import Header from "../components/Header";
 import BottomNavbar from "../components/BottomNavbar";
 import styled from "styled-components";
 import { backgroundColor } from "../constants/colors";
+import { useContext, useEffect, useState } from "react";
+import { UserDataContext } from "../contexts/userData";
+import axios from "axios";
+import { URL } from "../constants/apiLink";
+import TodayHabitsCards from "../components/TodayHabitsCards";
+import dayjs from "dayjs";
+import "dayjs/locale/pt-br";
 
 export default function TodayPage() {
+  const { userData } = useContext(UserDataContext);
+  const { token } = userData;
+
+  const [todayHabits, setTodayHabits] = useState([]);
+  const [doneHabits, setDoneHabits] = useState([]);
+
+  useEffect(() => {
+    const auth = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const promise = axios.get(`${URL}/habits/today`, auth);
+    promise.then((resp) => {
+      setTodayHabits(resp.data);
+      let doneHabitsCopy = [...doneHabits];
+      resp.data.forEach((h) => {
+        h.done ? (doneHabitsCopy = [...doneHabitsCopy, h.id]) : (doneHabitsCopy = [...doneHabitsCopy]);
+        setDoneHabits(doneHabitsCopy);
+      });
+    });
+  }, []);
+
+  function calculateCompleted() {
+    const totalDone = Math.ceil((doneHabits.length / todayHabits.length) * 100);
+    return <p>{totalDone}% dos hábitos concluídos</p>;
+  }
+
   return (
     <>
       <Header />
-      <Main>
-        <h1>Segunda, 17/05</h1>
-        <p>Nenhum hábito concluído ainda</p>
-        <Habit>
-          <h2>Ler 1 capítulo de livro</h2>
-          <p>Sequência atual: 3 dias</p>
-          <p>Seu recorde: 5 dias</p>
-          <ion-icon name="checkbox"></ion-icon>
-        </Habit>
-        <Habit>
-          <h2>Ler 1 capítulo de livro</h2>
-          <p>Sequência atual: 3 dias</p>
-          <p>Seu recorde: 5 dias</p>
-          <ion-icon name="checkbox"></ion-icon>
-        </Habit>
-        <Habit>
-          <h2>Ler 1 capítulo de livro</h2>
-          <p>Sequência atual: 3 dias</p>
-          <p>Seu recorde: 5 dias</p>
-          <ion-icon name="checkbox"></ion-icon>
-        </Habit>
-        <Habit>
-          <h2>Ler 1 capítulo de livro</h2>
-          <p>Sequência atual: 3 dias</p>
-          <p>Seu recorde: 5 dias</p>
-          <ion-icon name="checkbox"></ion-icon>
-        </Habit>
-        <Habit>
-          <h2>Ler 1 capítulo de livro</h2>
-          <p>Sequência atual: 3 dias</p>
-          <p>Seu recorde: 5 dias</p>
-          <ion-icon name="checkbox"></ion-icon>
-        </Habit>
-        <Habit>
-          <h2>Ler 1 capítulo de livro</h2>
-          <p>Sequência atual: 3 dias</p>
-          <p>Seu recorde: 5 dias</p>
-          <ion-icon name="checkbox"></ion-icon>
-        </Habit>
-        <Habit>
-          <h2>Ler 1 capítulo de livro</h2>
-          <p>Sequência atual: 3 dias</p>
-          <p>Seu recorde: 5 dias</p>
-          <ion-icon name="checkbox"></ion-icon>
-        </Habit>
-        <Habit>
-          <h2>Ler 1 capítulo de livro</h2>
-          <p>Sequência atual: 3 dias</p>
-          <p>Seu recorde: 5 dias</p>
-          <ion-icon name="checkbox"></ion-icon>
-        </Habit>
-        <Habit>
-          <h2>Ler 1 capítulo de livro</h2>
-          <p>Sequência atual: 3 dias</p>
-          <p>Seu recorde: 5 dias</p>
-          <ion-icon name="checkbox"></ion-icon>
-        </Habit>
-        <Habit>
-          <h2>Ler 1 capítulo de livro</h2>
-          <p>Sequência atual: 3 dias</p>
-          <p>Seu recorde: 5 dias</p>
-          <ion-icon name="checkbox"></ion-icon>
-        </Habit>
-        <Habit>
-          <h2>Ler 1 capítulo de livro</h2>
-          <p>Sequência atual: 3 dias</p>
-          <p>Seu recorde: 5 dias</p>
-          <ion-icon name="checkbox"></ion-icon>
-        </Habit>
+      <Main doneHabits={doneHabits}>
+        <h1>{dayjs().locale("pt-br").format("dddd, DD/MM")}</h1>
+        {doneHabits.length === 0 ? <p>Nenhum hábito concluído ainda</p> : calculateCompleted()}
+        {todayHabits.map((h) => {
+          return <TodayHabitsCards key={h.id} habit={h} doneHabits={doneHabits} setDoneHabits={setDoneHabits} />;
+        })}
       </Main>
       <BottomNavbar />
     </>
@@ -93,35 +66,8 @@ const Main = styled.main`
   }
 
   p {
-    color: #bababa;
+    color: ${(props) => (props.doneHabits.length === 0 ? "#bababa" : "#8FC549")};
+    margin-top: 5px;
     margin-bottom: 28px;
-  }
-`;
-
-const Habit = styled.div`
-  width: 100%;
-  min-height: 94px;
-  padding: 13px 95px 13px 13px;
-  background-color: #ffffff;
-  border-radius: 5px;
-  margin-bottom: 10px;
-
-  position: relative;
-
-  p {
-    margin-bottom: 0px;
-
-    font-size: 15px;
-    line-height: 16px;
-    color: #666666;
-  }
-
-  ion-icon {
-    font-size: 82px;
-    color: #ebebeb;
-
-    position: absolute;
-    right: 6px;
-    top: 6px;
   }
 `;

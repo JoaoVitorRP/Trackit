@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { buttonColor } from "../constants/colors";
@@ -5,9 +6,15 @@ import { buttonColor } from "../constants/colors";
 export default function BottomNavbar() {
   return (
     <Footer>
-      <SideButtons>Hábitos</SideButtons>
-      <TodayButton>Hoje</TodayButton>
-      <SideButtons>Histórico</SideButtons>
+      <Link to="/habitos">
+        <SideButtons>Hábitos</SideButtons>
+      </Link>
+      <Link to="/hoje">
+        <TodayButton>Hoje</TodayButton>
+      </Link>
+      <Link to="/historico">
+        <SideButtons>Histórico</SideButtons>
+      </Link>
     </Footer>
   );
 }
@@ -32,6 +39,7 @@ const SideButtons = styled.button`
   width: 90px;
   background-color: transparent;
   border: none;
+  cursor: pointer;
 
   font-size: 18px;
   color: ${buttonColor};
@@ -45,6 +53,7 @@ const TodayButton = styled.button`
   border-radius: 100px;
   margin-bottom: 40px;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
 
   font-size: 18px;
   color: #ffffff;

@@ -12,13 +12,13 @@ export default function HabitCards(props) {
   const [itemToDelete, setItemToDelete] = useState();
 
   function deleteItem(id, habitIndex) {
-    const config = {
+    const auth = {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     };
 
-    const promise = axios.delete(`${URL}/habits/${id}`, config);
+    const promise = axios.delete(`${URL}/habits/${id}`, auth);
     promise.then(() => {
       let habitCardsListCopy = [...habitCardsList];
       habitCardsListCopy = habitCardsListCopy.filter((i, index) => index !== habitIndex);
