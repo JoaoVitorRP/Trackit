@@ -6,6 +6,7 @@ import { URL } from "../constants/apiLink";
 import axios from "axios";
 import { UserDataContext } from "../contexts/userData";
 import { LoadingGIF } from "../constants/threeDots";
+import { ProgressContext } from "../contexts/progress";
 
 export default function AddHabitCard(props) {
   const { isHidden, setIsHidden, habitCardsList, setHabitCardsList } = props;

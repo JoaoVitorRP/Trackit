@@ -1,16 +1,32 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 import { buttonColor } from "../constants/colors";
+import { useContext } from "react";
+import { ProgressContext } from "../contexts/progress";
 
 export default function BottomNavbar() {
+  const { progress } = useContext(ProgressContext);
+
   return (
     <Footer>
       <Link to="/habitos">
         <SideButtons>Hábitos</SideButtons>
       </Link>
       <Link to="/hoje">
-        <TodayButton>Hoje</TodayButton>
+        <TodayButton>
+          <CircularProgressbar
+            value={progress}
+            text={"Hoje"}
+            styles={buildStyles({
+              textSize: "22px",
+              pathColor: "#FFFFFF",
+              textColor: "#FFFFFF",
+              trailColor: "transparent",
+            })}
+          />
+        </TodayButton>
       </Link>
       <Link to="/historico">
         <SideButtons>Histórico</SideButtons>
@@ -54,7 +70,4 @@ const TodayButton = styled.button`
   margin-bottom: 40px;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
   cursor: pointer;
-
-  font-size: 18px;
-  color: #ffffff;
 `;

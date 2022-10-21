@@ -6,12 +6,14 @@ import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { LoadingGIF } from "../constants/threeDots";
 import { UserDataContext } from "../contexts/userData";
+import { ProgressContext } from "../contexts/progress";
 
 export default function LoginPage() {
   const [loginInfo, setLoginInfo] = useState();
   const [errorMsg, setErrorMsg] = useState("");
   const [isDisabled, setIsDisabled] = useState(false);
   const { signIn } = useContext(UserDataContext);
+  const { getProgress } = useContext(ProgressContext);
 
   function login(event) {
     event.preventDefault();
@@ -20,6 +22,7 @@ export default function LoginPage() {
     const promise = axios.post(`${URL}/auth/login`, loginInfo);
     promise.then((resp) => {
       signIn(resp.data);
+      getProgress(resp.data);
     });
 
     promise.catch((err) => {

@@ -8,20 +8,23 @@ import HabitsPage from "./pages/HabitsPage";
 import TodayPage from "./pages/TodayPage";
 import HistoryPage from "./pages/HistoryPage";
 import UserDataProvider from "./contexts/userData";
+import ProgressProvider from "./contexts/progress";
 
 export default function App() {
   return (
     <BrowserRouter>
       <UserDataProvider>
-        <Reset />
-        <GlobalStyles />
-        <Routes>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/cadastro" element={<RegisterPage />} />
-          <Route path="/habitos" element={<HabitsPage />} />
-          <Route path="/hoje" element={<TodayPage />} />
-          <Route path="/historico" element={<HistoryPage />} />
-        </Routes>
+        <ProgressProvider>
+          <Reset />
+          <GlobalStyles />
+          <Routes>
+            <Route path="/" element={<LoginPage />} />
+            <Route path="/cadastro" element={<RegisterPage />} />
+            <Route path="/habitos" element={<HabitsPage />} />
+            <Route path="/hoje" element={<TodayPage />} />
+            <Route path="/historico" element={<HistoryPage />} />
+          </Routes>
+        </ProgressProvider>
       </UserDataProvider>
     </BrowserRouter>
   );

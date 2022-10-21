@@ -9,10 +9,12 @@ import { URL } from "../constants/apiLink";
 import TodayHabitsCards from "../components/TodayHabitsCards";
 import dayjs from "dayjs";
 import "dayjs/locale/pt-br";
+import { ProgressContext } from "../contexts/progress";
 
 export default function TodayPage() {
   const { userData } = useContext(UserDataContext);
   const { token } = userData;
+  const { updateProgress } = useContext(ProgressContext);
 
   const [todayHabits, setTodayHabits] = useState([]);
   const [doneHabits, setDoneHabits] = useState([]);
@@ -37,6 +39,7 @@ export default function TodayPage() {
 
   function calculateCompleted() {
     const totalDone = Math.ceil((doneHabits.length / todayHabits.length) * 100);
+    updateProgress(totalDone);
     return <p>{totalDone}% dos hábitos concluídos</p>;
   }
 
