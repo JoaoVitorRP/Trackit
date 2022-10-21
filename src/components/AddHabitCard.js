@@ -13,6 +13,7 @@ export default function AddHabitCard(props) {
 
   const { userData } = useContext(UserDataContext);
   const { token } = userData;
+  const { getProgress } = useContext(ProgressContext);
 
   const [selectedDays, setSelectedDays] = useState([]);
   const [habitName, setHabitName] = useState("");
@@ -53,6 +54,7 @@ export default function AddHabitCard(props) {
         setSelectedDays([]);
         setIsDisabled(false);
         setErrorMsg("");
+        getProgress(userData);
       });
       promise.catch((err) => console.log(err));
     } else {

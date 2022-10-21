@@ -18,6 +18,8 @@ export default function HabitsPage() {
   const [habitCardsList, setHabitCardsList] = useState([]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     const auth = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -46,7 +48,7 @@ export default function HabitsPage() {
         {habitCardsList.length === 0 ? (
           <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
         ) : (
-          <HabitCards habitCardsList={habitCardsList} setHabitCardsList={setHabitCardsList}/>
+          <HabitCards habitCardsList={habitCardsList} setHabitCardsList={setHabitCardsList} />
         )}
       </Main>
       <BottomNavbar />

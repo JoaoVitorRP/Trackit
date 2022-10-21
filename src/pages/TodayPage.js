@@ -20,6 +20,8 @@ export default function TodayPage() {
   const [doneHabits, setDoneHabits] = useState([]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     const auth = {
       headers: {
         Authorization: `Bearer ${token}`,

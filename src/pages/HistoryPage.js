@@ -4,6 +4,8 @@ import Header from "../components/Header";
 import { backgroundColor } from "../constants/colors";
 
 export default function HistoryPage() {
+  window.scrollTo(0, 0);
+  
   return (
     <>
       <Header />

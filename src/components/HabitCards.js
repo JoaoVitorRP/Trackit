@@ -3,12 +3,14 @@ import { useContext, useState } from "react";
 import styled from "styled-components";
 import { URL } from "../constants/apiLink";
 import { DAYS } from "../constants/weekdays";
+import { ProgressContext } from "../contexts/progress";
 import { UserDataContext } from "../contexts/userData";
 
 export default function HabitCards(props) {
   const { habitCardsList, setHabitCardsList } = props;
   const { userData } = useContext(UserDataContext);
   const { token } = userData;
+  const { getProgress } = useContext(ProgressContext);
   const [itemToDelete, setItemToDelete] = useState();
 
   function deleteItem(id, habitIndex) {
@@ -23,7 +25,8 @@ export default function HabitCards(props) {
       let habitCardsListCopy = [...habitCardsList];
       habitCardsListCopy = habitCardsListCopy.filter((i, index) => index !== habitIndex);
       setHabitCardsList(habitCardsListCopy);
-      setItemToDelete()
+      setItemToDelete();
+      getProgress(userData);
     });
     promise.catch(() => alert("Ocorreu um erro, favor fazer login novamente!"));
   }
@@ -110,7 +113,7 @@ const ConfirmDelete = styled.div`
   border-radius: 10px;
   box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.75);
 
-  display: ${(props) => props.itemToDelete === props.index ? "flex" : "none"};
+  display: ${(props) => (props.itemToDelete === props.index ? "flex" : "none")};
 
   position: absolute;
   top: 10.5px;

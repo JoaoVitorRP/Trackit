@@ -6,12 +6,12 @@ export const ProgressContext = createContext();
 
 export default function ProgressProvider({ children }) {
   const [progress, setProgress] = useState();
-  const [todayHabits, setTodayHabits] = useState([]);
-  const [doneHabits, setDoneHabits] = useState([]);
 
   function calculateCompleted(done, today) {
+    console.log(`Done: ${done.length}`);
+    console.log(`Today: ${today.length}`);
     const totalDone = Math.ceil((done.length / today.length) * 100);
-    Number.isNaN(totalDone) ?  setProgress(0) : setProgress(totalDone);
+    Number.isNaN(totalDone) ? setProgress(0) : setProgress(totalDone);
   }
 
   function getProgress(apiResponse) {
@@ -22,13 +22,11 @@ export default function ProgressProvider({ children }) {
     };
     const promise = axios.get(`${URL}/habits/today`, auth);
     promise.then((resp) => {
-      setTodayHabits(resp.data);
-      let doneHabitsCopy = [...doneHabits];
+      let doneHabits = [];
       resp.data.forEach((h) => {
-        h.done ? (doneHabitsCopy = [...doneHabitsCopy, h.id]) : (doneHabitsCopy = [...doneHabitsCopy]);
-        setDoneHabits(doneHabitsCopy);
+        h.done ? (doneHabits = [...doneHabits, h.id]) : (doneHabits = [...doneHabits]);
       });
-      calculateCompleted(doneHabitsCopy, resp.data);
+      calculateCompleted(doneHabits, resp.data);
     });
   }
 
