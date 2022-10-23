@@ -12,7 +12,7 @@ export default function Header() {
   return (
     <TopBanner>
       <img src={Logo} alt="Logo"/>
-      <UserImg src={image} alt="Foto de perfil"/>
+      <UserImg src={image} alt="Foto de perfil" data-identifier="avatar"/>
     </TopBanner>
   );
 }

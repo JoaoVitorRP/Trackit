@@ -34,17 +34,17 @@ export default function HabitCards(props) {
   return habitCardsList.map((obj, index) => {
     return (
       <HabitCard key={obj.id}>
-        <h4>{obj.name}</h4>
+        <h4 data-identifier="habit-name">{obj.name}</h4>
         <DaysDivs>
           {DAYS.map((d, index) => {
             return (
-              <DayDiv key={index} selectedDays={obj.days} index={index}>
+              <DayDiv key={index} selectedDays={obj.days} index={index} data-identifier="week-day-btn">
                 {d}
               </DayDiv>
             );
           })}
         </DaysDivs>
-        <ion-button onClick={() => setItemToDelete(index)}>
+        <ion-button onClick={() => setItemToDelete(index)} data-identifier="delete-habit-btn">
           <ion-icon name="trash-outline"></ion-icon>
         </ion-button>
         <ConfirmDelete itemToDelete={itemToDelete} index={index}>

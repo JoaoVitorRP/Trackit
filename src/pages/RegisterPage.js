@@ -39,6 +39,7 @@ export default function RegisterPage() {
           placeholder="email"
           onChange={(e) => setUserInfo({ ...userInfo, email: e.target.value })}
           disabled={isDisabled}
+          data-identifier="input-email"
         />
         {errorMsg !== "" ? <h3>{errorMsg}</h3> : null}
         <input
@@ -47,6 +48,7 @@ export default function RegisterPage() {
           placeholder="senha"
           onChange={(e) => setUserInfo({ ...userInfo, password: e.target.value })}
           disabled={isDisabled}
+          data-identifier="input-password"
         />
         <input
           type="text"
@@ -54,6 +56,7 @@ export default function RegisterPage() {
           placeholder="nome"
           onChange={(e) => setUserInfo({ ...userInfo, name: e.target.value })}
           disabled={isDisabled}
+          data-identifier="input-name"
         />
         <input
           type="url"
@@ -61,12 +64,13 @@ export default function RegisterPage() {
           placeholder="imagem"
           onChange={(e) => setUserInfo({ ...userInfo, image: e.target.value })}
           disabled={isDisabled}
+          data-identifier="input-photo"
         />
         <button type="submit" disabled={isDisabled}>
           {isDisabled ? LoadingGIF : "Cadastrar"}
         </button>
       </form>
-      <Link to="/">
+      <Link to="/" data-identifier="back-to-login-action">
         <p>Já tem uma conta? Faça login!</p>
       </Link>
     </Main>

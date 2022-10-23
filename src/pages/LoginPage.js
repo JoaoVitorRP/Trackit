@@ -37,7 +37,7 @@ export default function LoginPage() {
 
   return (
     <Main isDisabled={isDisabled}>
-      <img src={Logo} alt="Logo"/>
+      <img src={Logo} alt="Logo" />
       <form onSubmit={login}>
         <input
           type="email"
@@ -45,6 +45,7 @@ export default function LoginPage() {
           placeholder="email"
           onChange={(e) => setLoginInfo({ ...loginInfo, email: e.target.value })}
           disabled={isDisabled}
+          data-identifier="input-email"
         />
         {errorMsg === "Não encontramos este email!" ? <h3>{errorMsg}</h3> : null}
         <input
@@ -53,13 +54,14 @@ export default function LoginPage() {
           placeholder="senha"
           onChange={(e) => setLoginInfo({ ...loginInfo, password: e.target.value })}
           disabled={isDisabled}
+          data-identifier="input-password"
         />
         {errorMsg === "Senha incorreta!" ? <h3>{errorMsg}</h3> : null}
-        <button type="submit" disabled={isDisabled}>
+        <button type="submit" disabled={isDisabled} data-identifier="login-btn">
           {isDisabled ? LoadingGIF : "Entrar"}
         </button>
       </form>
-      <Link to="/cadastro">
+      <Link to="/cadastro" data-identifier="sign-up-action">
         <p>Não tem uma conta? Cadastre-se!</p>
       </Link>
     </Main>

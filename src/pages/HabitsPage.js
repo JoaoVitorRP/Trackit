@@ -38,7 +38,7 @@ export default function HabitsPage() {
       <Header />
       <Main>
         <h1>Meus hábitos</h1>
-        <CreateCardButton onClick={() => setIsHidden(!isHidden)}>+</CreateCardButton>
+        <CreateCardButton onClick={() => setIsHidden(!isHidden)} data-identifier="create-habit-btn">+</CreateCardButton>
         <AddHabitCard
           isHidden={isHidden}
           setIsHidden={setIsHidden}
@@ -46,7 +46,7 @@ export default function HabitsPage() {
           setHabitCardsList={setHabitCardsList}
         />
         {habitCardsList.length === 0 ? (
-          <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
+          <p data-identifier="no-habit-message">Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
         ) : (
           <HabitCards habitCardsList={habitCardsList} setHabitCardsList={setHabitCardsList} />
         )}

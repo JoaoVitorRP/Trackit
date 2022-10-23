@@ -8,8 +8,6 @@ export default function ProgressProvider({ children }) {
   const [progress, setProgress] = useState();
 
   function calculateCompleted(done, today) {
-    console.log(`Done: ${done.length}`);
-    console.log(`Today: ${today.length}`);
     const totalDone = Math.ceil((done.length / today.length) * 100);
     Number.isNaN(totalDone) ? setProgress(0) : setProgress(totalDone);
   }
@@ -31,6 +29,7 @@ export default function ProgressProvider({ children }) {
   }
 
   function updateProgress(totalDone) {
+    Number.isNaN(totalDone) ? setProgress(0) : setProgress(totalDone);
     setProgress(totalDone);
   }
 

@@ -70,6 +70,7 @@ export default function AddHabitCard(props) {
         value={habitName}
         onChange={(e) => setHabitName(e.target.value)}
         disabled={isDisabled}
+        data-identifier="input-habit-name"
       />
       <h3>{errorMsg}</h3>
       <DaysButtons>
@@ -81,16 +82,17 @@ export default function AddHabitCard(props) {
               index={index}
               onClick={() => pickSelectedDay(index)}
               disabled={isDisabled}
+              data-identifier="week-day-btn"
             >
               {d}
             </DayButton>
           );
         })}
       </DaysButtons>
-      <CancelButton onClick={() => setIsHidden(true)} disabled={isDisabled}>
+      <CancelButton onClick={() => setIsHidden(true)} disabled={isDisabled} data-identifier="cancel-habit-create-btn">
         Cancelar
       </CancelButton>
-      <SaveButton onClick={submitHabit} disabled={isDisabled}>
+      <SaveButton onClick={submitHabit} disabled={isDisabled} data-identifier="save-habit-create-btn">
         {isDisabled ? LoadingGIF : "Salvar"}
       </SaveButton>
     </Card>

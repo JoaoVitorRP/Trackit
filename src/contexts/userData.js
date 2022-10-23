@@ -9,7 +9,7 @@ export default function UserDataProvider({ children }) {
 
   function signIn(apiResponse) {
     setUserData(apiResponse);
-    navigate("/habitos");
+    navigate("/hoje");
   }
 
   return <UserDataContext.Provider value={{ signIn, userData }}>{children}</UserDataContext.Provider>;

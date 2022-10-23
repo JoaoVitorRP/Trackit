@@ -11,7 +11,7 @@ export default function BottomNavbar() {
 
   return (
     <Footer>
-      <Link to="/habitos">
+      <Link to="/habitos" data-identifier="habit-page-action">
         <SideButtons>Hábitos</SideButtons>
       </Link>
       <Link to="/hoje">
@@ -28,7 +28,7 @@ export default function BottomNavbar() {
           />
         </TodayButton>
       </Link>
-      <Link to="/historico">
+      <Link to="/historico" data-identifier="historic-page-action">
         <SideButtons>Histórico</SideButtons>
       </Link>
     </Footer>

@@ -9,12 +9,10 @@ import { URL } from "../constants/apiLink";
 import TodayHabitsCards from "../components/TodayHabitsCards";
 import dayjs from "dayjs";
 import "dayjs/locale/pt-br";
-import { ProgressContext } from "../contexts/progress";
 
 export default function TodayPage() {
   const { userData } = useContext(UserDataContext);
   const { token } = userData;
-  const { updateProgress } = useContext(ProgressContext);
 
   const [todayHabits, setTodayHabits] = useState([]);
   const [doneHabits, setDoneHabits] = useState([]);
@@ -31,6 +29,7 @@ export default function TodayPage() {
     const promise = axios.get(`${URL}/habits/today`, auth);
     promise.then((resp) => {
       setTodayHabits(resp.data);
+      console.log(resp.data);
       let doneHabitsCopy = [...doneHabits];
       resp.data.forEach((h) => {
         h.done ? (doneHabitsCopy = [...doneHabitsCopy, h.id]) : (doneHabitsCopy = [...doneHabitsCopy]);
@@ -41,18 +40,17 @@ export default function TodayPage() {
 
   function calculateCompleted() {
     const totalDone = Math.ceil((doneHabits.length / todayHabits.length) * 100);
-    updateProgress(totalDone);
-    return <p>{totalDone}% dos hábitos concluídos</p>;
+    return <p data-identifier="today-infos">{totalDone}% dos hábitos concluídos</p>;
   }
 
   return (
     <>
       <Header />
       <Main doneHabits={doneHabits}>
-        <h1>{dayjs().locale("pt-br").format("dddd, DD/MM")}</h1>
-        {doneHabits.length === 0 ? <p>Nenhum hábito concluído ainda</p> : calculateCompleted()}
+        <h1 data-identifier="today-infos">{dayjs().locale("pt-br").format("dddd, DD/MM")}</h1>
+        {doneHabits.length === 0 ? <p data-identifier="today-infos">Nenhum hábito concluído ainda</p> : calculateCompleted()}
         {todayHabits.map((h) => {
-          return <TodayHabitsCards key={h.id} habit={h} doneHabits={doneHabits} setDoneHabits={setDoneHabits} />;
+          return <TodayHabitsCards key={h.id} habit={h} doneHabits={doneHabits} setDoneHabits={setDoneHabits} todayHabits={todayHabits}/>;
         })}
       </Main>
       <BottomNavbar />
